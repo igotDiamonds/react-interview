@@ -1,3 +1,7 @@
+// 1. Что делает этот компонент?
+// 2. Как можно улучшить читаемость?
+// 3. Как его отрефакторить?
+
 import { useEffect, useState } from "react";
 import { showAlert } from "../utils";
 
@@ -36,7 +40,6 @@ export function ListComponent() {
     <div className="list-component">
       {list.map(({ id, name }: { id: number; name: string }) => (
         <div key={id} className="list-component__item>">
-          {/* We want to trim long name with ellipsis */}
           {name.slice(0, 30) + (name.length > 30 ? "..." : "")}
 
           <div onClick={handleDeleteItem(id)} className="list-component__icon">
