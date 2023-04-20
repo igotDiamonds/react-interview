@@ -1,40 +1,37 @@
-// 1. Что делает этот компонент?
-// 2. Как можно улучшить читаемость?
-// 3. Как его отрефакторить?
-
-import { useEffect, useState } from "react";
-import { showAlert } from "../utils";
+import { useEffect, useState } from "react"
+import { showAlert } from "../utils"
+import { TrashIcon } from "@heroicons/react/24/outline"
 
 export function ListComponent() {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState([])
 
   useEffect(() => {
     const fetchList = async () => {
       try {
-        const resp = await fetch("https://dummyjson.com/products");
-        const data = await resp.json();
+        const resp = await fetch("https://dummyjson.com/products")
+        const data = await resp.json()
 
-        setList(data);
+        setList(data.products)
       } catch {
-        showAlert({ text: "Something went wrong!" });
+        showAlert({ text: "Something went wrong!" })
       }
-    };
+    }
 
-    fetchList();
-  }, []);
+    fetchList()
+  }, [])
 
   const handleDeleteItem = (id: number) => {
     return () => {
       try {
         fetch(`https://dummyjson.com/products/${id}`, {
           method: "DELETE",
-        });
-        setList((prev) => prev.filter((x: { id: number }) => x.id !== id));
+        })
+        setList(prev => prev.filter((x: { id: number }) => x.id !== id))
       } catch {
-        showAlert({ text: "Something went wrong!" });
+        showAlert({ text: "Something went wrong!" })
       }
-    };
-  };
+    }
+  }
 
   return (
     <div className="list-component">
@@ -43,10 +40,10 @@ export function ListComponent() {
           {name.slice(0, 30) + (name.length > 30 ? "..." : "")}
 
           <div onClick={handleDeleteItem(id)} className="list-component__icon">
-            X
+            <TrashIcon className="h-6 w-6" />
           </div>
         </div>
       ))}
     </div>
-  );
+  )
 }
