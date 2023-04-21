@@ -11,7 +11,7 @@ export function ListComponent() {
         const resp = await fetch("https://dummyjson.com/products")
         const data = await resp.json()
 
-        setList(data.products)
+        setList(data)
       } catch {
         showAlert({ text: "Something went wrong!" })
       }
